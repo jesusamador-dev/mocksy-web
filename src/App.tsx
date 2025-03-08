@@ -4,9 +4,7 @@ import viteLogo from '/vite.svg';
 import './App.css';
 
 const App: FC = () => {
-  const [count, setCount] = useState<number>(0);
-  const hola: string = 'Hola';
-  console.log(hola);
+  const [count, setCount] = useState(0);
   return (
     <>
       <div>
