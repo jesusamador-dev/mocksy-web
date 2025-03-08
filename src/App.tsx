@@ -4,7 +4,8 @@ import viteLogo from '/vite.svg';
 import './App.css';
 
 const App: FC = () => {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState<number>(0);
+  const config = 'hola';
   return (
     <>
       <div>
