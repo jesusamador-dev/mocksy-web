@@ -5,7 +5,9 @@ import './App.css';
 
 const App: FC = () => {
   const [count, setCount] = useState<number>(0);
-  const config = 'hola';
+  const config: string = 'hola';
+
+  console.log(config);
   return (
     <>
       <div>
