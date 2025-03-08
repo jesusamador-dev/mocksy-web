@@ -22,7 +22,7 @@ jobs:
         run: npm install
 
       - name: Run tests with coverage
-        run: npm run test -- --coverage
+        run: npm run coverage
 
       - name: Check Coverage Threshold
         run: |
@@ -30,9 +30,10 @@ jobs:
           const summary = JSON.parse(fs.readFileSync('coverage/coverage-summary.json', 'utf8'));
           const lines = summary.total.lines.pct;
           console.log('Total Coverage (lines):', lines);
-          if (lines < parseInt(process.env.COVERAGE_MINIMUM, 10)) {
-            console.error('❌ Coverage is below ' + process.env.COVERAGE_MINIMUM + '%');
+          const minCoverage = parseInt(process.env.COVERAGE_MINIMUM || '90', 10);
+          if (lines < minCoverage) {
+            console.error('❌ Coverage is below ' + minCoverage + '%');
             process.exit(1);
           } else {
-            console.log('✅ Coverage meets the threshold (>=' + process.env.COVERAGE_MINIMUM + '%)');
+            console.log('✅ Coverage meets the threshold (>=' + minCoverage + '%)');
           }"

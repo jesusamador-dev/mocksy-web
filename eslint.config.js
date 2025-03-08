@@ -11,7 +11,7 @@ import tailwindcss from 'eslint-plugin-tailwindcss';
 
 export default [
   ...tseslint.config(
-    { ignores: ['dist', '.storybook', 'tailwind.config.ts'] },
+    { ignores: ['dist', '.storybook', 'tailwind.config.ts', 'jest.config.ts'] },
     {
       extends: [js.configs.recommended, ...tseslint.configs.recommended],
       files: ['src/**/*.{js,jsx,ts,tsx}', 'tests/**/*.{js,jsx,ts,tsx}'],
