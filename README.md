@@ -1,54 +1,103 @@
-# React + TypeScript + Vite
+# Mocksy - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Breve descripción del proyecto y su propósito.
 
-Currently, two official plugins are available:
+## Tabla de Contenidos
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [Instalación](#instalación)
+- [Configuración del Entorno](#configuración-del-entorno)
+- [Scripts Disponibles](#scripts-disponibles)
+- [Herramientas de Calidad de Código](#herramientas-de-calidad-de-código)
+  - [ESLint y Prettier](#eslint-y-prettier)
+  - [Commitlint y Husky](#commitlint-y-husky)
+- [Storybook](#storybook)
+- [Tailwind CSS](#tailwind-css)
+- [Contribuir](#contribuir)
+- [Licencia](#licencia)
 
-## Expanding the ESLint configuration
+## Instalación
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+1. Clona el repositorio:
+   ```bash
+   git clone https://github.com/tuusuario/tu-proyecto.git
+   cd tu-proyecto
+   ```
+2. Instala las dependencias:
+   ```bash
+   npm install
+   ```
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
+## Configuración del Entorno
+
+Asegúrate de tener instalado Node.js (versión recomendada 22.x o superior).
+
+### Plugins de Visual Studio Code
+
+- Eslint
+- Prettier: Seleccionar "Prettier - Code Formater" como default
+
+### Scripts Disponibles
+
+Estos son los comandos principales que puedes utilizar:
+
+- npm run lint: Ejecuta ESLint en los archivos de src/ y tests/.
+- npm run lint:fix: Ejecuta ESLint con auto-fix.
+- npm run format: Ejecuta Prettier para formatear el código.
+- npm run test: Ejecuta la suite de tests (Jest).
+- npm run storybook: Inicia Storybook para ver los componentes de forma aislada.
+- npm run build-storybook: Genera la versión estática de Storybook.
+
+## Herramientas de Calidad de Código
+
+### ESLint y Prettier
+
+El proyecto usa ESLint en modo flat con TypeScript, React Hooks y Prettier.
+
+ESLint se configura para:
+Aplicar reglas de estilo y detectar errores.
+Validar que se usen buenas prácticas (por ejemplo, prohibir var, exigir tipos explícitos, etc.).
+Prettier se usa para formatear el código de forma consistente.
+Ambas herramientas se integran mediante la extensión de VSCode y scripts de npm.
+Para ejecutar ESLint, utiliza:
+
+```bash
+npx eslint --fix --max-warnings=0
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Commitlint y Husky
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
+El proyecto utiliza Commitlint junto con Husky para validar que los mensajes de commit sigan el estándar Conventional Commits.
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-});
+El archivo de configuración de Commitlint se encuentra en commitlint.config.cjs.
+Husky está configurado para ejecutar el hook commit-msg y validar el mensaje de commit:
+Archivo .husky/commit-msg
+
+```bash
+#!/usr/bin/env sh
+npx commitlint --edit "$1"
+```
+
+### Storybook
+
+Storybook está configurado para documentar y probar los componentes de la aplicación de forma aislada.
+
+Los archivos de configuración se encuentran en la carpeta .storybook/.
+Para iniciar Storybook, usa:
+
+```bash
+npm run storybook
+```
+
+### Tailwind CSS
+
+El proyecto utiliza Tailwind CSS para el estilizado, junto con PostCSS y Autoprefixer.
+
+La configuración de Tailwind se encuentra en tailwind.config.ts (usando TypeScript).
+La configuración de PostCSS está en postcss.config.js.
+En tu CSS principal (por ejemplo, src/index.css), se incluyen las directivas:
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 ```
