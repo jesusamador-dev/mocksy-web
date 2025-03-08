@@ -8,10 +8,16 @@ on:
 
 jobs:
   test:
+    permissions:
+      checks: write
+      pull-requests: write
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - name: Coverage report
         uses: ArtiomTr/jest-coverage-report-action@v2
+        with:
+          prnumber: ${{ steps.findPr.outputs.number }}
 
       - name: Checkout code
         uses: actions/checkout@v3
