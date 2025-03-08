@@ -6,9 +6,9 @@ const config: Config = {
   },
   testEnvironment: 'jsdom',
   testMatch: ['<rootDir>/tests/**/*.test.(ts|tsx)'],
-  // Coverage, if you want:
   collectCoverage: true,
-  collectCoverageFrom: ['src/**/*.ts', 'src/**/*.tsx'],
+  collectCoverageFrom: ['**/*.{js,ts,tsx,jsx}', '!**/node_modules/**'],
+  coverageReporters: ['text', 'text-summary'],
 };
 
 export default config;
