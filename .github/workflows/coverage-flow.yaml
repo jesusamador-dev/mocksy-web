@@ -1,0 +1,38 @@
+name: CI - Test & Coverage
+
+on:
+  pull_request:
+    branches:
+      - dev
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests with coverage
+        run: npm run test -- --coverage
+
+      - name: Check Coverage Threshold
+        run: |
+          node -e "const fs = require('fs'); 
+          const summary = JSON.parse(fs.readFileSync('coverage/coverage-summary.json', 'utf8'));
+          const lines = summary.total.lines.pct;
+          console.log('Total Coverage (lines):', lines);
+          if (lines < parseInt(process.env.COVERAGE_MINIMUM, 10)) {
+            console.error('❌ Coverage is below ' + process.env.COVERAGE_MINIMUM + '%');
+            process.exit(1);
+          } else {
+            console.log('✅ Coverage meets the threshold (>=' + process.env.COVERAGE_MINIMUM + '%)');
+          }"
