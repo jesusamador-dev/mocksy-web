@@ -14,14 +14,17 @@ jobs:
       contents: write
     runs-on: ubuntu-latest
     steps:
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+         with:
+          fetch-depth: 0
+
       - name: Coverage report
         uses: ArtiomTr/jest-coverage-report-action@v2
         with:
           prnumber: ${{ steps.findPr.outputs.number }}
-
-      - name: Checkout code
-        uses: actions/checkout@v3
-
+          
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
