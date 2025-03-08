@@ -11,10 +11,18 @@ import tailwindcss from 'eslint-plugin-tailwindcss';
 
 export default [
   ...tseslint.config(
-    { ignores: ['dist', '.storybook', 'tailwind.config.ts', 'jest.config.ts'] },
+    {
+      ignores: [
+        'dist',
+        '.storybook',
+        'tailwind.config.ts',
+        'jest.config.ts',
+        'tests/**/*.{js,jsx,ts,tsx}',
+      ],
+    },
     {
       extends: [js.configs.recommended, ...tseslint.configs.recommended],
-      files: ['src/**/*.{js,jsx,ts,tsx}', 'tests/**/*.{js,jsx,ts,tsx}'],
+      files: ['src/**/*.{js,jsx,ts,tsx}'],
       languageOptions: {
         parser,
         parserOptions: {

@@ -1,0 +1,4 @@
+# Ignorar toda la carpeta de tests
+tests/
+**/*.test.ts
+**/*.test.tsx
