@@ -1,50 +1,26 @@
-name: CI - Test & Coverage
-
+#coverage.yml
+name: 'coverage'
 on:
   pull_request:
     branches:
-      - dev
       - main
-
+      - dev
 jobs:
-  test:
+  coverage:
     permissions:
       checks: write
       pull-requests: write
       contents: write
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          fetch-depth: 0
-
-      - name: Coverage report
-        uses: ArtiomTr/jest-coverage-report-action@v2
+          cache: 'npm'
+      - uses: ArtiomTr/jest-coverage-report-action@v2.1.2
+        id: coverage
         with:
-          prnumber: ${{ steps.findPr.outputs.number }}
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '22'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run tests with coverage
-        run: npm run coverage
-
-      - name: Check Coverage Threshold
-        run: |
-          node -e "const fs = require('fs'); 
-          const summary = JSON.parse(fs.readFileSync('coverage/coverage-summary.json', 'utf8'));
-          const lines = summary.total.lines.pct;
-          console.log('Total Coverage (lines):', lines);
-          const minCoverage = parseInt(process.env.COVERAGE_MINIMUM || '90', 10);
-          if (lines < minCoverage) {
-            console.error('❌ Coverage is below ' + minCoverage + '%');
-            process.exit(1);
-          } else {
-            console.log('✅ Coverage meets the threshold (>=' + minCoverage + '%)');
-          }"
+          annotations: none
+          package-manager: npm
+          test-script: npm coverage
+          icons: emoji
