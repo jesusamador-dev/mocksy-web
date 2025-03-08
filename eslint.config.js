@@ -7,10 +7,11 @@ import jestPlugin from 'eslint-plugin-jest';
 import prettierPlugin from 'eslint-plugin-prettier';
 import parser from '@typescript-eslint/parser';
 import tsPlugin from '@typescript-eslint/eslint-plugin';
+import tailwindcss from 'eslint-plugin-tailwindcss';
 
 export default [
   ...tseslint.config(
-    { ignores: ['dist', '.storybook'] },
+    { ignores: ['dist', '.storybook', 'tailwind.config.ts'] },
     {
       extends: [js.configs.recommended, ...tseslint.configs.recommended],
       files: ['src/**/*.{js,jsx,ts,tsx}', 'tests/**/*.{js,jsx,ts,tsx}'],
@@ -25,6 +26,7 @@ export default [
         'react-hooks': reactHooks,
         'react-refresh': reactRefresh,
         '@typescript-eslint': tsPlugin,
+        tailwindcss,
       },
       rules: {
         ...reactHooks.configs.recommended.rules,
